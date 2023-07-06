@@ -41,6 +41,22 @@ function updateTaskIds() {
     taskId = tasks.length > 0 ? tasks.length : 0;
 }
 
+// Agrego funcion para poder agregar con el teclado tambien la tarea.
+
+function handleKeyPress(event) {
+    if (event.keyCode === 13) {
+        addTask();
+    }
+}
+
+// Obtenemos la referencia desde la entrada de texto
+
+const taskInput = document.getElementById("taskInput");
+
+// Y le ponemos oido al evento keydown
+
+taskInput.addEventListener("keydown", handleKeyPress);
+
 function renderTasks() {
     const taskTable = document.getElementById("taskTable");
     const totalCounter = document.getElementById("totalCounter");
