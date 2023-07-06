@@ -1,7 +1,7 @@
 let tasks = [
     { id: 1, name: "Renunciar", completed: false },
     { id: 2, name: "Estudiar como loco", completed: false },
-    { id: 3, name: "Certificarme y cambiar", completed: false }
+    { id: 3, name: "Certificarme y cambiar", completed: false },
 ];
 let taskId = 0;
 
@@ -19,20 +19,22 @@ function addTask() {
 }
 
 function deleteTask(id) {
-    tasks = tasks.filter(task => task.id !== id);
+    tasks = tasks.filter((task) => task.id !== id);
     updateTaskIds();
     renderTasks();
 }
 
 function toggleCompleted(id) {
-    tasks = tasks.map(task => {
+    tasks = tasks.map((task) => {
         if (task.id === id) {
         task.completed = !task.completed;
     }
-        return task;
-});
-    renderTasks();
+    return task;
+    });
+renderTasks();
 }
+
+// Agrego funcion para poder mantener actualizada el numero de las ID segun la cantidad de objetos en el array.
 
 function updateTaskIds() {
     tasks.forEach((task, index) => {
@@ -61,43 +63,44 @@ function renderTasks() {
     const taskTable = document.getElementById("taskTable");
     const totalCounter = document.getElementById("totalCounter");
     const completedCounter = document.getElementById("completedCounter");
-    
-    taskTable.innerHTML = "";
-    
-    tasks.forEach(task => {
-        const row = document.createElement("tr");
 
-        const idCell = document.createElement("td");
+        taskTable.innerHTML = "";
+
+        tasks.forEach((task) => {
+    const row = document.createElement("tr");
+
+    const idCell = document.createElement("td");
         idCell.textContent = task.id;
         row.appendChild(idCell);
 
-        const nameCell = document.createElement("td");
+    const nameCell = document.createElement("td");
         nameCell.textContent = task.name;
         row.appendChild(nameCell);
 
-        const actionsCell = document.createElement("td");
+    const actionsCell = document.createElement("td");
 
-        const checkbox = document.createElement("input");
+    const checkbox = document.createElement("input");
         checkbox.type = "checkbox";
         checkbox.checked = task.completed;
         checkbox.addEventListener("change", () => toggleCompleted(task.id));
         actionsCell.appendChild(checkbox);
 
-        const deleteButton = document.createElement("button");
+    const deleteButton = document.createElement("button");
         deleteButton.innerHTML = '<i class="fas fa-trash-alt"></i>';
         deleteButton.addEventListener("click", () => deleteTask(task.id));
         actionsCell.appendChild(deleteButton);
 
         row.appendChild(actionsCell);
 
-        taskTable.appendChild(row);
+    taskTable.appendChild(row);
 });
-    
+
     totalCounter.textContent = tasks.length;
-    const completedTasks = tasks.filter(task => task.completed);
+    const completedTasks = tasks.filter((task) => task.completed);
     completedCounter.textContent = completedTasks.length;
 }
 
 // Renderizar las tareas iniciales utilizando forEach
+
 updateTaskIds();
 renderTasks();
